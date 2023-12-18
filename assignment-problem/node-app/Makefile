@@ -1,6 +1,7 @@
 IMAGE_ID?=
 IMAGE_NAME=node-app
 IMAGE_VERSION=1.0
+REPO_IMAGE_NAME=shah20/node-hello-world
 CONTAINER_NAME=basic-node-app
 
 create-image:
@@ -29,3 +30,18 @@ run-app-with-tag-auto-remove:
 
 remove-image-with-tag:
 	docker rmi $(IMAGE_NAME):$(IMAGE_VERSION)
+
+rename-image:
+	docker tag $(IMAGE_NAME):$(IMAGE_VERSION) $(REPO_IMAGE_NAME):$(IMAGE_VERSION)
+
+push-image:
+	docker push $(REPO_IMAGE_NAME):$(IMAGE_VERSION)
+
+docker-login:
+	docker login
+
+docker-logout:
+	docker logout
+
+pull-image:
+	docker pull $(REPO_IMAGE_NAME):$(IMAGE_VERSION)
