@@ -45,3 +45,18 @@ docker-logout:
 
 pull-image:
 	docker pull $(REPO_IMAGE_NAME):$(IMAGE_VERSION)
+
+inspect-image:
+	docker image inspect $(REPO_IMAGE_NAME):$(IMAGE_VERSION)
+
+copy-in-container:
+	docker cp copy-data/. $(CONTAINER_NAME):/app/test-copy
+
+copy-from-container:
+	docker cp $(CONTAINER_NAME):/app/test-copy/. copy-outside
+
+view-logs:
+	docker logs $(CONTAINER_NAME)
+
+follow-logs:
+	docker logs -f $(CONTAINER_NAME)
