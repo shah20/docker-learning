@@ -6,6 +6,9 @@ CURRENT_DIR=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 build-image:
 	docker build -t $(IMAGE_NAME):$(IMAGE_VERSION) .
 
+build-image-with-arg:
+	docker build -t $(IMAGE_NAME):$(IMAGE_VERSION) --build-arg DEFAULT_PORT=8000 .
+
 run-container:
 	docker run -p 3000:80 -d --rm --name $(CONTAINER_NAME) $(IMAGE_NAME)
 

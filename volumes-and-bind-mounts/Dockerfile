@@ -8,7 +8,10 @@ RUN npm install
 
 COPY . .
 
-ENV PORT 80
+# Add ARG after npm install to avoid re-running npm install
+ARG DEFAULT_PORT=80
+
+ENV PORT $DEFAULT_PORT
 
 EXPOSE $PORT
 
