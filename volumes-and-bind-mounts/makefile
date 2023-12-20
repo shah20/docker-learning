@@ -15,6 +15,9 @@ run-container-with-named-volume:
 run-container-with-named-volume-bind-mount:
 	docker run -p 3000:80 -d --rm --name $(CONTAINER_NAME) -v feedback:/app/feedback -v "$(CURRENT_DIR):/app" -v /app/node_modules $(IMAGE_NAME)
 
+run-container-with-named-volume-readonly-bind-mount:
+	docker run -p 3000:80 -d --rm --name $(CONTAINER_NAME) -v feedback:/app/feedback -v "$(CURRENT_DIR):/app:ro" -v /app/temp -v /app/node_modules $(IMAGE_NAME)
+
 attach-shell:
 	docker exec -it $(CONTAINER_NAME) bash
 

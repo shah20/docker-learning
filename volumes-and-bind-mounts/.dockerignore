@@ -1,0 +1,4 @@
+.dockerignore
+Dockerfile
+makefile
+node_modules
