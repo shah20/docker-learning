@@ -8,7 +8,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 80
+ENV PORT 80
+
+EXPOSE $PORT
 
 # Either set a anonymouse volumne while running container
 # OR add anonymous volume during image building
