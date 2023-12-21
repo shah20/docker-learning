@@ -67,16 +67,18 @@ app.get('/people', async (req, res) => {
   }
 });
 
-// 'mongodb://host.docker.internal:27017/swfavorites'
-// host.docker.internal is special address used in docker that docker uses to access the host machine
-// at runtime docker resolves it with the IP address of the host machine
-// 
-// 'mongodb://172.17.0.2:27017/swfavorites'
-// we can get IP address of the host machine by running 'docker inspect <container_id/container_name>' OR
-// 'docker container inspect <container_id/container_name>' command
-// 
-// 'mongodb://mongodb:27017/swfavorites'
-// mongodb is the name of the mongodb container
+/**
+  'mongodb://host.docker.internal:27017/swfavorites'
+  host.docker.internal is special address used in docker that docker uses to access the host machine
+  at runtime docker resolves it with the IP address of the host machine
+ 
+  'mongodb://172.17.0.2:27017/swfavorites'
+  we can get IP address of the host machine by running 'docker inspect <container_id/container_name>' OR
+  'docker container inspect <container_id/container_name>' command
+ 
+  'mongodb://mongodb:27017/swfavorites'
+  mongodb is the name of the mongodb container
+*/
 mongoose.connect(
   // 'mongodb://localhost:27017/swfavorites',
   // 'mongodb://host.docker.internal:27017/swfavorites',
