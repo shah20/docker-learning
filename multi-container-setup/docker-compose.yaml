@@ -1,0 +1,60 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    container_name: "goals-mongodb"
+    volumes:
+      - mongodb:/data/db
+    # environment:
+      # syntax 1
+      # MONGO_INITDB_ROOT_USERNAME: sarada
+      # MONGO_INITDB_ROOT_PASSWORD: sarada
+      # syntax 2
+      # - MONGO_INITDB_ROOT_USERNAME=sarada
+      # - MONGO_INITDB_ROOT_PASSWORD=sarada
+    # Either declare environment variables in the environment section or use an env_file 
+    env_file:
+      - ./env/mongo.env
+    # By default all services in a compose file are connected to a default network.
+    # We can override this behavior by explicitly declaring networks to connect to.
+    # networks:
+    #   - goals-net
+  backend:
+    image: "goals-backend"
+    build: ./backend
+    container_name: "goals-backend"
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     some-arg: some-value
+    ports:
+      - "80:80"
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+  frontend:
+    image: "goals-frontend"
+    build: ./frontend
+    container_name: "goals-frontend"
+    environment:
+      - PORT=4000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./frontend/src:/app/src
+    # equivalent to -it
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+# Specify only named volumes
+volumes:
+  mongodb:
+  logs:
