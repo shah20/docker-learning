@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    # Can be used to select pods based on labels
+    # In this case, we are selecting pods with label app=second-app
+    # All pods from any deployment with label app=second-app will be selected
+    app: second-app
+  ports:
+    - protocol: 'TCP'
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+# --- (3 dashes) yaml specific definition saying new object starting
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  # default replica 1
+  replicas: 1
+  selector:
+    matchLabels:
+      # these key/value pairs should match with the label of pod
+      # which is created by this deployment
+      # this is how deployment knows which pod to manage
+      app: second-app
+      tier: backend
+  template:
+    # this template is always of Pod kind as it is always Pod for deployment
+    # no need to specofy kind: Pod here
+    metadata:
+      labels:
+        app: second-app
+        tier: backend
+    spec:
+      containers:
+        - name: second-app
+          image: shah20/kub-first-app:2
+      # - name: another-container
+      #   image: another-image

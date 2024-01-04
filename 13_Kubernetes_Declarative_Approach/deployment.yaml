@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+  labels:
+    group: example
+spec:
+  # default replica 1
+  replicas: 1
+  selector:
+    matchLabels:
+      # these key/value pairs should match with the label of pod
+      # which is created by this deployment
+      # this is how deployment knows which pod to manage
+      app: second-app
+      tier: backend
+  # matchExpressions:
+  #   - {key: app, operator: In, values: [second-app]}
+  template:
+    # this template is always of Pod kind as it is always Pod for deployment
+    # no need to specofy kind: Pod here
+    metadata:
+      labels:
+        app: second-app
+        tier: backend
+    spec:
+      containers:
+        - name: second-app
+          image: shah20/kub-first-app:2
+          # If image tag is latest, then by default imagePullPolicy is Always
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
+      # - name: another-container
+      #   image: another-image

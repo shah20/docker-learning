@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    group: example
+spec:
+  selector:
+    # Can be used to select pods based on labels
+    # In this case, we are selecting pods with label app=second-app
+    # All pods from any deployment with label app=second-app will be selected
+    app: second-app
+  ports:
+    - protocol: 'TCP'
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
