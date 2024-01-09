@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  # volumeMode: Block # FileSystem/Block are the two volume modes
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce # Can be mounted as read-write by a single node
+    # - ReadWriteMany # Can be mounted as read-write by many nodes, not available for hostPath as it is single node env
+    # - ReadOnlyMany # Can be mounted as read-only by many nodes, not available for hostPath as it is single node env
+  # hostPath persistent volume works only one single node env like local testing env only
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate
