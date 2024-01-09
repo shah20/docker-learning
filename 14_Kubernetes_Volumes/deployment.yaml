@@ -14,7 +14,15 @@ spec:
     spec:
       containers:
         - name: story
-          image: shah20/story:2
+          image: shah20/story:3
+          env:
+            - name: STORY_FOLDER            
+              # value: 'story' # This should match with the mountPath in volumeMounts
+              # Use value or valueFrom, only one of them
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store-env
+                  key: folder
           volumeMounts:
             - name: story-volume
               mountPath: /app/story

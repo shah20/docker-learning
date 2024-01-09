@@ -1,5 +1,5 @@
 IMAGE_NAME=shah20/story
-IMAGE_VERSION=2
+IMAGE_VERSION=3
 
 run-docker-compose:
 	docker compose up -d --build
@@ -28,3 +28,6 @@ apply-host-pv:
 
 apply-host-pvc:
 	kubectl apply -f=host-pvc.yaml
+
+apply-config:
+	kubectl apply -f=environment.yaml
