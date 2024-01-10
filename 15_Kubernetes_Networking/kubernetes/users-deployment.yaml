@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+        # By latest tag kubernets will pull the latest image from docker hub every time we deploy
+          image: shah20/kub-demo-users:latest
+          env:
+            - name: AUTH_ADDRESS
+            # special address for kubernetes to communicate with other containers in same pod
+              # value: localhost
+            #  get the cluster IP of the service by running kubectl get services
+              # value: "10.97.127.96"
+            # within a cluster there is aDNS name created for each service with format <service_name>.<namespace_name>
+              value: "auth-service.default"
+        # - name: auth
+        #   image: shah20/kub-demo-auth:latest

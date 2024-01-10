@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service # kubernetes create env variable and pass it to all containers, whose value is IP address of the service
+  # as <service_name>_SERVICE_HOST with service_name as every letter in caps and - replaced by _
+spec:
+  selector:
+    app: auth
+  type: ClusterIP # only accessible within cluster
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
