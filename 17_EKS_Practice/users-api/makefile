@@ -1,4 +1,4 @@
-IMAGE_NAME=shah20/kub-demo-tasks
+IMAGE_NAME=shah20/kub-dep-users
 IMAGE_VERSION=latest
 
 build-image:
