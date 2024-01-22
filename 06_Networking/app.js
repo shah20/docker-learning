@@ -73,7 +73,7 @@ app.get('/people', async (req, res) => {
   at runtime docker resolves it with the IP address of the host machine
  
   'mongodb://172.17.0.2:27017/swfavorites'
-  we can get IP address of the host machine by running 'docker inspect <container_id/container_name>' OR
+  we can get IP address of the container by running 'docker inspect <container_id/container_name>' OR
   'docker container inspect <container_id/container_name>' command
  
   'mongodb://mongodb:27017/swfavorites'

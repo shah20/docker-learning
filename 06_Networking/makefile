@@ -49,7 +49,7 @@ create-network:
 # -p is not required as we dont need to access mongodb from outside the container
 # container in same network can access each other using container name
 run-mongodb-in-favourites-net:
-	docker run -d --rm --name $(MONGO_DB_CONTAINER_NAME) --network $(NETWORK_NAME)$(MONGO_DB_IMAGE_NAME)
+	docker run -d --rm --name $(MONGO_DB_CONTAINER_NAME) --network $(NETWORK_NAME) $(MONGO_DB_IMAGE_NAME)
 
 run-app-container-in-favourites-net:
 	docker run -d --rm --name $(CONTAINER_NAME) --network $(NETWORK_NAME) -p 3000:3000 $(IMAGE_NAME)
